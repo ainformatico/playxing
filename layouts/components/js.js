@@ -205,7 +205,8 @@ var APP = APP ||
       var inputs    = $('input', form),
           l_inputs  = inputs.length,
           result    = true,
-          error_cls = 'error';
+          error_cls = 'error',
+          first;
       while(l_inputs--)
       {
         var current  = inputs[l_inputs],
@@ -217,6 +218,8 @@ var APP = APP ||
             result = false;
             console.log("error: ", current);
             current.addClass(error_cls);
+            //NOTE: save the first element with an error
+            first = current;
           }
           else
           {
@@ -224,6 +227,8 @@ var APP = APP ||
           }
         }
       }
+
+      first && first.focus(); //focus the first element with error
       return result;
     }
   };
