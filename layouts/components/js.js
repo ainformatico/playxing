@@ -43,6 +43,15 @@ var APP = APP ||
           objects methods like _prototype_ library,
           but I want a fast implementation for this demo.
    */
+
+  /**
+   * Add and event
+   *
+   * @param {string} evt event
+   *
+   * @param {function} cb callback
+   *
+   * */
   Element.prototype.on = function(evt, cb)
   {
     var _this = this;
@@ -54,6 +63,45 @@ var APP = APP ||
     {
       _this.attachEvent('on' + evt, cb);
     }
+  };
+
+  /**
+   * Check if a item has a class
+   *
+   * @param {string} cls class
+   *
+   * @return {boolean} true has the class
+   *
+   * @return {boolean} false not has the class
+   *
+   * */
+  Element.prototype.hasClass = function(cls)
+  {
+    return new RegExp(cls).test(this.className);
+  };
+
+  /**
+   * Remove a class from an item
+   *
+   * @param {string} cls class
+   *
+   * */
+  Element.prototype.removeClass = function(cls)
+  {
+    var _this = this;
+    _this.className = _this.className.replace(new RegExp('\\s?' + cls, 'g'), '');
+  };
+
+  /**
+   * Add a clas to an item
+   *
+   * @param {string} cls class
+   *
+   * */
+  Element.prototype.addClass = function(cls)
+  {
+    var _this = this;
+    !_this.hasClass(cls) && (_this.className += cls);
   };
 
   /**
@@ -154,9 +202,10 @@ var APP = APP ||
      * */
     validator : function(form)
     {
-      var inputs   = $('input', form),
-          l_inputs = inputs.length,
-          result   = true;
+      var inputs    = $('input', form),
+          l_inputs  = inputs.length,
+          result    = true,
+          error_cls = 'error';
       while(l_inputs--)
       {
         var current  = inputs[l_inputs],
@@ -167,6 +216,11 @@ var APP = APP ||
           {
             result = false;
             console.log("error: ", current);
+            current.addClass(error_cls);
+          }
+          else
+          {
+            current.removeClass(error_cls);
           }
         }
       }
