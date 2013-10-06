@@ -217,7 +217,6 @@ var APP = APP ||
           if(!validations[current.getAttribute('data-validate')](current))
           {
             result = false;
-            console.log("error: ", current);
             current.addClass(error_cls);
             //NOTE: save the first element with an error
             first = current;
@@ -254,23 +253,16 @@ var APP = APP ||
   win.onload = function()
   {
     var form = $('#signup');
-    if(form)
-    {
-      console.log("found it");
-    }
 
     form.on('submit', function(e)
     {
       e.preventDefault && e.preventDefault();
-      console.log("submit");
-      console.log(APP.enhanced);
       /*NOTE: let the "modern" browser make the validations
               and fallback to "native" implementation for older browsers.
 
        */
       if(APP.enhanced || APP.validator(form))
       {
-        console.log("pass!");
         $('#main').innerHTML = $('#login-success').innerHTML;
       }
       return false;
