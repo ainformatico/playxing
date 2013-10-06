@@ -1,3 +1,12 @@
+if(typeof window.console === 'undefined')
+{
+  window.console =
+  {
+    log : function(){}
+  };
+}
+
+
 /**
  * Basic selector engine
  *
@@ -27,8 +36,26 @@ var $ = (function(dt, win)
 })(document, window);
 
 var APP = APP ||
-(function()
+(function(dt, win)
 {
+  //custom functions for DOM elements
+  /*NOTE: I don't really want to mess up with the native
+          objects methods like _prototype_ library,
+          but I want a fast implementation for this demo.
+   */
+  Element.prototype.on = function(evt, cb)
+  {
+    var _this = this;
+    if(typeof dt.addEventListener === 'function')
+    {
+      _this.addEventListener(evt, cb, false);
+    }
+    else
+    {
+      _this.attachEvent('on' + evt, cb);
+    }
+  };
+
   /**
    * Utils
    *
@@ -160,11 +187,12 @@ var APP = APP ||
       console.log("found it");
     }
 
-    form.addEventListener('submit', function(e)
+    form.on('submit', function(e)
     {
       e.preventDefault && e.preventDefault();
       console.log("form =>", APP.validator(form));
       console.log("submit");
+      return false;
     }, false);
 
   };
