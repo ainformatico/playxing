@@ -115,6 +115,16 @@ var APP = APP ||
 
   methods =
   {
+    /**
+     * Validates a form
+     *
+     * @param {element} form
+     *
+     * @return {boolean} true is valid
+     *
+     * @return {boolean} false is valid
+     *
+     * */
     validator : function(form)
     {
       var inputs   = $('input', form),
