@@ -117,7 +117,23 @@ var APP = APP ||
   {
     validator : function(form)
     {
-      return form.tagName === 'FORM';
+      var inputs   = $('input', form),
+          l_inputs = inputs.length,
+          result   = true;
+      while(l_inputs--)
+      {
+        var current  = inputs[l_inputs],
+            required = current.getAttribute('data-required'); //NOTE: getAttribute has more support than dataset
+        if(required)
+        {
+          if(!validations[current.getAttribute('data-validate')](current))
+          {
+            result = false;
+            console.log("error: ", current);
+          }
+        }
+      }
+      return result;
     }
   };
 
