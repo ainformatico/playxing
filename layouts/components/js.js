@@ -26,7 +26,105 @@ var $ = (function(dt, win)
   };
 })(document, window);
 
-(function(dt, win)
+var APP = APP ||
+(function()
+{
+  /**
+   * Utils
+   *
+   * */
+  var utils =
+  {
+    /**
+     * Ltrim a string
+     *
+     * @param {string} string
+     *
+     * @return {string}
+     *
+     * */
+    ltrim : function(s)
+    {
+      return s.replace(/^\s*/, '');
+    },
+
+    /**
+     * Rtrim a string
+     *
+     * @param {string} string
+     *
+     * @return {string}
+     *
+     * */
+    rtrim: function(s)
+    {
+      return s.replace(/\s*$/, '');
+    },
+
+    /**
+     * Trim a string
+     *
+     * @param {string} string
+     *
+     * @return {string}
+     *
+     * */
+    trim : function(s)
+    {
+      var _this = this;
+      return _this.ltrim(_this.rtrim(s));
+    }
+  },
+
+  validations =
+  {
+    /**
+     * Check if an item value is empty
+     *
+     * @param {element} item
+     *
+     * @return {boolean} true is empty
+     *
+     * @return {boolean} false not empty
+     *
+     * */
+    empty : function(item)
+    {
+      //NOTE: our requirement for now is just to check for length > 2
+      return item.value.replace(/\s/g, '').length > 2;
+    },
+
+    /**
+     * Validates email
+     *
+     * @param {element} item
+     *
+     * @return {boolean} true is valid
+     *
+     * @return {boolean} false not valid
+     *
+     * */
+    email : function(item)
+    {
+      //john@doe.co
+      //john@doe.com
+      //john.doe@john.doe.com
+      return /^[^ ]+@(\w+\.)+(\w{2,})$/.test(utils.trim(item.value));
+    }
+  },
+
+  methods =
+  {
+    validator : function(form)
+    {
+      return form.tagName === 'FORM';
+    }
+  };
+
+  return methods;
+})(document, window);
+
+(function(dt, win, APP)
 {
   win.onload = function()
   {
@@ -39,8 +137,9 @@ var $ = (function(dt, win)
     form.addEventListener('submit', function(e)
     {
       e.preventDefault && e.preventDefault();
+      console.log("form =>", APP.validator(form));
       console.log("submit");
     }, false);
 
   };
-})(document, window);
+})(document, window, APP);
