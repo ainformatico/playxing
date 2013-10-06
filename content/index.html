@@ -10,17 +10,17 @@ title: Create a new account for free
             <legend>Sign Up</legend>
             <p class="item">
               <label for="name">name</label>
-              <input type="text" name="name" value="" id="name" data-required="true" data-validate="empty" autofocus placeholder="name" />
+              <input type="text" name="name" value="" id="name" data-validate="empty" placeholder="name" pattern="[a-zA-Z]{3,}" autofocus required  />
               <span class="hint">Minimum 3 chars</span>
             </p> <!-- .item -->
             <p class="item">
               <label for="surname">surname</label>
-              <input type="text" name="surname" value="" data-required="true" data-validate="empty" id="surname" placeholder="surname" />
+              <input type="text" name="surname" value="" data-validate="empty" id="surname" placeholder="surname" pattern="[a-zA-Z]{3,}" required />
               <span class="hint">Minimum 3 chars</span>
             </p> <!-- .item -->
             <p class="item">
               <label for="email">email</label>
-              <input type="email" name="email" value="" data-required="true" data-validate="email" id="email" />
+              <input type="email" name="email" value="" data-validate="email" id="email" placeholder="john@doe.com" pattern="^[^ ]+@(\w+\.)+(\w{2,})$" required />
               <span class="hint">Ex. john@doe.com</span>
             </p> <!-- .item -->
             <p class="actions">

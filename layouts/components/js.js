@@ -210,7 +210,7 @@ var APP = APP ||
       while(l_inputs--)
       {
         var current  = inputs[l_inputs],
-            required = current.getAttribute('data-required'); //NOTE: getAttribute has more support than dataset
+            required = current.getAttribute('required'); //NOTE: getAttribute has more support than dataset
         if(required)
         {
           if(!validations[current.getAttribute('data-validate')](current))
@@ -230,7 +230,19 @@ var APP = APP ||
 
       first && first.focus(); //focus the first element with error
       return result;
-    }
+    },
+
+    /**
+    * Set the browser as "modern"
+    * for now just test for input[type=email]
+    * and assume html5 powered browser
+    * */
+    enhanced : (function(dt)
+    {
+      var test = dt.createElement("input");
+      test.setAttribute('type', 'email');
+      return test.type === 'email';
+    })(dt)
   };
 
   return methods;
@@ -249,8 +261,16 @@ var APP = APP ||
     form.on('submit', function(e)
     {
       e.preventDefault && e.preventDefault();
-      console.log("form =>", APP.validator(form));
       console.log("submit");
+      console.log(APP.enhanced);
+      /*NOTE: let the "modern" browser make the validations
+              and fallback to "native" implementation for older browsers.
+
+       */
+      if(APP.enhanced || APP.validator(form))
+      {
+        console.log("pass!");
+      }
       return false;
     }, false);
 
