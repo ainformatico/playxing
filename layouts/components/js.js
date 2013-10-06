@@ -271,6 +271,7 @@ var APP = APP ||
       if(APP.enhanced || APP.validator(form))
       {
         console.log("pass!");
+        $('#main').innerHTML = $('#login-success').innerHTML;
       }
       return false;
     }, false);
