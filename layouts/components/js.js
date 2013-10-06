@@ -188,6 +188,10 @@ var APP = APP ||
     }
   },
 
+  /**
+   * Public methods
+   *
+   * */
   methods =
   {
     /**
@@ -216,6 +220,13 @@ var APP = APP ||
         {
           if(!validations[current.getAttribute('data-validate')](current))
           {
+            /*TODO: the UX can be improved using the blur event
+                    for older browsers so the validation takes place
+                    when the user leaves the /input.
+
+                    This should be the place to do it :D
+                    and the validation is OK then we remove the event.
+             */
             result = false;
             current.addClass(error_cls);
             //NOTE: save the first element with an error
@@ -253,7 +264,6 @@ var APP = APP ||
   win.onload = function()
   {
     var form = $('#signup');
-
     form.on('submit', function(e)
     {
       e.preventDefault && e.preventDefault();
