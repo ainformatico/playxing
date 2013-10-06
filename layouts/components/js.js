@@ -276,7 +276,6 @@ var APP = APP ||
         $('#main').innerHTML = $('#login-success').innerHTML;
       }
       return false;
-    }, false);
-
+    });
   };
 })(document, window, APP);
