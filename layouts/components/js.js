@@ -210,7 +210,8 @@ var APP = APP ||
       while(l_inputs--)
       {
         var current  = inputs[l_inputs],
-            required = current.getAttribute('required'); //NOTE: getAttribute has more support than dataset
+            //NOTE: getAttribute has more support than dataset
+            required = !!(current.getAttribute('required') !== null); //IE is returning "" for true and null for false
         if(required)
         {
           if(!validations[current.getAttribute('data-validate')](current))
